@@ -2,6 +2,7 @@
   <dictionary name="jdlac">
     <words>
       <w>creds</w>
+      <w>userkey</w>
     </words>
   </dictionary>
 </component>
