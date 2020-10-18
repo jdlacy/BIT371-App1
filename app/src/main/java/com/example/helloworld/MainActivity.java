@@ -1,38 +1,31 @@
 package com.example.helloworld;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    ArrayList<com.example.helloworld.Contact> contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    }
+        // Lookup the recyclerview in activity layout
+        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
 
-
-    public void CredCheck (View view){
-        TextView welcome = findViewById(R.id.welcome);
-        EditText userkey = findViewById(R.id.Username);
-        EditText passkey = findViewById(R.id.Password);
-        String userID = userkey.getText().toString().trim();
-        String userPass = passkey.getText().toString().trim();
-
-        Log.i("USER ENTRY DETECTED!", "Username entry: " + userID);
-        Log.i("USER ENTRY DETECTED!", "Password entry: " + userPass);
-
-        Intent creds = new Intent(getApplicationContext(), UserConfirmationActivity.class);
-        creds.putExtra("Username", userID);
-        creds.putExtra("Password", userPass);
-        startActivity(creds);
+        // Initialize contacts
+        contacts = Contact.createContactsList(20);
+        // Create adapter passing in the sample user data
+        ContactAdapter adapter = new ContactAdapter(contacts);
+        // Attach the adapter to the recyclerview to populate items
+        rvContacts.setAdapter(adapter);
+        // Set layout manager to position the items
+        rvContacts.setLayoutManager(new LinearLayoutManager(this));
     }
 }
